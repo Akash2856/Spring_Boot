@@ -5,10 +5,10 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class FiirstController {
 
-    @GetMapping("/hello")
-    public String sayHello(){
-        return "hello Akash padai chal rhi hai!!!!";
-    }
+//    @GetMapping("/hello")
+//    public String sayHello(){
+//        return "hello Akash padai chal rhi hai!!!!";
+//    }
     @PostMapping("/post")
     public String post(
             @RequestBody String message){
@@ -25,5 +25,12 @@ public class FiirstController {
             @PathVariable String userName
     ){
         return "user name "+userName;
+    }
+    @GetMapping("/hello")
+    public String paramVar(
+            @RequestParam("user-name") String userName,
+            @RequestParam("user-lastname") String userLastName
+    ){
+        return "user name "+userName+" "+ userLastName;
     }
 }
