@@ -7,11 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class BootApplication {
 
 	public static void main(String[] args) {
-
-		var ctx = SpringApplication.run(BootApplication.class, args);
-//		MyFirstClass myFirstClass=ctx.getBean(MyFirstClass.class);
-//		System.out.println(myFirstClass.sayhello());
-		MyFirstService myFirstService=ctx.getBean(MyFirstService.class);
-		System.out.println(myFirstService.tellStory());
+		SpringApplication.run(BootApplication.class);
 	}
 }
