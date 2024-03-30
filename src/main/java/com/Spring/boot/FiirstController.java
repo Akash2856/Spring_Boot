@@ -1,9 +1,6 @@
 package com.Spring.boot;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class FiirstController {
@@ -21,5 +18,12 @@ public class FiirstController {
     public String post(
             @RequestBody Order order){
         return "Request accepted "+order.toString();
+    }
+
+    @GetMapping("/hello/{userName}")
+    public String sayHello(
+            @PathVariable String userName
+    ){
+        return "user name "+userName;
     }
 }
