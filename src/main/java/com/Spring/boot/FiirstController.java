@@ -17,5 +17,9 @@ public class FiirstController {
             @RequestBody String message){
         return "Request accepted "+message;
     }
-
+    @PostMapping("/post-order")
+    public String post(
+            @RequestBody Order order){
+        return "Request accepted "+order.toString();
+    }
 }
