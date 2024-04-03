@@ -1,5 +1,6 @@
 package com.Spring.boot;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,5 +40,21 @@ public class FiirstController {
             @PathVariable("name") String name
    ){
         return studentRepo.findAllByFname(name);
+   }
+
+   @DeleteMapping("/students/{student-id}")
+   @ResponseStatus(HttpStatus.OK)
+    public void delete(
+            @PathVariable("student-id") Integer id
+   ){
+        studentRepo.deleteById(id);
+   }
+   //http://localhost:8080/students/akash?id=52 for update
+   @PutMapping("/students/{fname}")
+    public void updateStudentName(
+            @PathVariable("fname") String fname,
+            @RequestParam("id") Integer id
+            ){
+        studentRepo.updateStudentName(fname,id);
    }
 }
