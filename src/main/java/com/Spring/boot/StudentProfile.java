@@ -1,8 +1,6 @@
 package com.Spring.boot;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class StudentProfile  {
@@ -10,6 +8,17 @@ public class StudentProfile  {
     @GeneratedValue
     private Integer id;
     private String bio;
+
+    public Integer getId() {
+        return id;
+    }
+    @OneToOne
+    @JoinColumn(name = "")
+    private Student student;
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public StudentProfile() {
     }

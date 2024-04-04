@@ -1,9 +1,6 @@
 package com.Spring.boot;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Student {
@@ -15,6 +12,21 @@ public class Student {
     @Column(unique = true)
     private String email;
     private int age;
+    //mappedBy=student ---> student should be same object name as used in student profile
+    @OneToOne(mappedBy = "student",cascade=CascadeType.ALL)
+    private StudentProfile studentProfile;
+
+    @ManyToOne
+    @JoinColumn(name="school_id")
+    private School school;
+
+    public StudentProfile getStudentProfile() {
+        return studentProfile;
+    }
+
+    public void setStudentProfile(StudentProfile studentProfile) {
+        this.studentProfile = studentProfile;
+    }
 
     public Student(String firstname, String lastName, String email, int age) {
         this.firstname = firstname;

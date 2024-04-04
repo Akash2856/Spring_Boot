@@ -20,10 +20,11 @@ public interface StudentRepo extends JpaRepository<Student,Integer> {
             nativeQuery = true)
     List<Student> findAllByFname(@Param("name") String name);
 
-    //for update 
+    //for update
     @Transactional
     @Modifying
     @Query(value = "update student a set a.firstname=:fname where a.id= :id",
             nativeQuery = true)
     void updateStudentName(@Param("fname") String fname, @Param("id") Integer id);
+
 }
