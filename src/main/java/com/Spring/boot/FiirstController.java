@@ -59,18 +59,24 @@ public class FiirstController {
    }
 
 //    {
-//        "firstname":"shikhar",
-//            "lastName":"gupta",
-//            "email":"shikhar@asd.com",
-//            "schoolId":1
-//    }
+//    "firstname":"vishal",
+//    "lastName":"yadav",
+//    "email":"vishal@asd.com",
+//    "schoolId":1
+//}
+// output
+//{
+//    "firstname": "vishal",
+//        "lastName": "yadav",
+//        "email": "vishal@asd.com"
+//}
 //    http://localhost:8080/students
     @PostMapping("/students")
-    public Student post(
+    public StudentresponseDto post(
             @RequestBody StudentDto studentDto
     ){
         var student =toStudent(studentDto);
-        return studentRepo.save(student);
+        return tostudentresponseDto(studentRepo.save(student));
     }
 
     private Student toStudent(StudentDto dto){
@@ -82,5 +88,9 @@ public class FiirstController {
         school.setId(dto.schoolId());
         student.setSchool(school);
         return student;
+    }
+
+    private StudentresponseDto tostudentresponseDto(Student student){
+        return new StudentresponseDto(student.getFirstname(),student.getLastName(),student.getEmail());
     }
 }
