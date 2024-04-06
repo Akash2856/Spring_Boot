@@ -1,5 +1,6 @@
 package com.Spring.boot;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -14,6 +15,8 @@ public class School {
     private Integer id;
     private String name;
     @OneToMany(mappedBy = "school")
+    @JsonManagedReference
+    //@JsonManagedReference allowed parent to make child serialize i.e. use child data in output when we call student data for output
     private List<Student> students;
 
     public List<Student> getStudents() {

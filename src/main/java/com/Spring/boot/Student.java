@@ -1,5 +1,6 @@
 package com.Spring.boot;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -18,7 +19,17 @@ public class Student {
 
     @ManyToOne
     @JoinColumn(name="school_id")
+    @JsonBackReference
+    //@JsonBackReference not allowed to make child to serialize back to parent
     private School school;
+
+    public School getSchool() {
+        return school;
+    }
+
+    public void setSchool(School school) {
+        this.school = school;
+    }
 
     public StudentProfile getStudentProfile() {
         return studentProfile;
