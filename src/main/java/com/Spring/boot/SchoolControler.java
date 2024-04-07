@@ -11,33 +11,32 @@ import java.util.stream.Collectors;
 @RestController
 public class SchoolControler {
 
-    private final SchoolRepository schoolRepository;
+    private SchoolService schoolService;
 
-    public SchoolControler(SchoolRepository schoolRepository) {
-        this.schoolRepository = schoolRepository;
+    public SchoolControler(SchoolService schoolService) {
+        this.schoolService = schoolService;
     }
-//-----------------------------------------------------------------------------
+
+    //-----------------------------------------------------------------------------
     @PostMapping("/schools")
     public School create(
             @RequestBody School school
     ){
-        return schoolRepository.save(school);
+        return schoolService.create(school);
     }
 
     @GetMapping("/schools")
     public List<School> findAll(){
-        return  schoolRepository.findAll();
+        return  schoolService.findAll();
     }
 
     //---------------------------------------------------------------------------
 
     @GetMapping("/listOnlySchool")
     public List<SchoolDTO> findAllSchool(){
-        return schoolRepository.findAll().stream().map(this::toSchoolDTO).collect(Collectors.toList());
+        return schoolService.findAllSchool();
     }
-    private SchoolDTO toSchoolDTO(School school){
-        return new SchoolDTO(school.getName());//we are fetching the data so getName()
-    }
+
 
 //--------------------------------------------------------------------------------
 //  previous output
@@ -52,11 +51,6 @@ public class SchoolControler {
     public SchoolDTO post(
             @RequestBody SchoolDTO schoolDTO
     ){
-        var school = toSchool(schoolDTO);
-        schoolRepository.save(school);
-        return schoolDTO;
-    }
-    public School toSchool(SchoolDTO dto){
-        return new School(dto.name());
+        return schoolService.post(schoolDTO);
     }
 }

@@ -12,10 +12,11 @@ public class FiirstController {
     public String sayHello(){
         return "hello Akash padai chal rhi hai!!!!";
     }
-    private final StudentRepo studentRepo;
 
-    public FiirstController(StudentRepo studentRepo) {
-        this.studentRepo = studentRepo;
+    private final StudentService studentService;
+
+    public FiirstController(StudentService studentService) {
+        this.studentService = studentService;
     }
 
     //save method is related to studentRepo and it's return same object
@@ -25,21 +26,21 @@ public class FiirstController {
 //        return studentRepo.save(student);
 //    }
    @GetMapping("/students")
-   public List<Student> findAllStudent(){
-        return studentRepo.findAll();
+   public List<StudentresponseDto> findAllStudent(){
+        return studentService.findAllStudent();
    }
    @GetMapping("/students/{age}")
     public List<Student> findAllByage(
             @PathVariable("age") Integer age
    ){
-        return studentRepo.findAllByage(age);
+        return studentService.findAllByage(age);
    }
 
    @GetMapping("students/{name}")
-    public List<Student>findAllByFname(
+    public List<StudentresponseDto>findAllByFname(
             @PathVariable("name") String name
    ){
-        return studentRepo.findAllByFname(name);
+        return studentService.findAllByFname(name);
    }
 
    @DeleteMapping("/students/{student-id}")
@@ -47,7 +48,7 @@ public class FiirstController {
     public void delete(
             @PathVariable("student-id") Integer id
    ){
-        studentRepo.deleteById(id);
+        studentService.delete(id);
    }
    //http://localhost:8080/students/akash?id=52 for update
    @PutMapping("/students/{fname}")
@@ -55,7 +56,7 @@ public class FiirstController {
             @PathVariable("fname") String fname,
             @RequestParam("id") Integer id
             ){
-        studentRepo.updateStudentName(fname,id);
+        studentService.updateStudentName(fname,id);
    }
 
 //    {
@@ -63,10 +64,6 @@ public class FiirstController {
 //    "lastName":"yadav",
 //    "email":"vishal@asd.com",
 //    "schoolId":1
-//}
-// output
-//{
-//    "firstname": "vishal",
 //        "lastName": "yadav",
 //        "email": "vishal@asd.com"
 //}
@@ -75,22 +72,8 @@ public class FiirstController {
     public StudentresponseDto post(
             @RequestBody StudentDto studentDto
     ){
-        var student =toStudent(studentDto);
-        return tostudentresponseDto(studentRepo.save(student));
+        return studentService.post(studentDto);
     }
 
-    private Student toStudent(StudentDto dto){
-        var student= new Student();
-        student.setFirstname(dto.firstname());
-        student.setLastName(dto.lastName());
-        student.setEmail(dto.email());
-        var school = new School();
-        school.setId(dto.schoolId());
-        student.setSchool(school);
-        return student;
-    }
 
-    private StudentresponseDto tostudentresponseDto(Student student){
-        return new StudentresponseDto(student.getFirstname(),student.getLastName(),student.getEmail());
-    }
 }
