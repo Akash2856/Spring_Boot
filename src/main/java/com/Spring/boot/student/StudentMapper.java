@@ -1,5 +1,6 @@
-package com.Spring.boot;
+package com.Spring.boot.student;
 
+import com.Spring.boot.school.School;
 import org.springframework.stereotype.Service;
 
 @Service

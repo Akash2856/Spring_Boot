@@ -1,5 +1,8 @@
-package com.Spring.boot;
+package com.Spring.boot.school;
 
+import com.Spring.boot.school.SchoolDTO;
+import com.Spring.boot.school.SchoolMapper;
+import com.Spring.boot.school.SchoolRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

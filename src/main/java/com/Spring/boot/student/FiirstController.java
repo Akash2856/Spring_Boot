@@ -1,8 +1,13 @@
-package com.Spring.boot;
+package com.Spring.boot.student;
 
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -70,10 +75,22 @@ public class FiirstController {
 //    http://localhost:8080/students
     @PostMapping("/students")
     public StudentresponseDto post(
-            @RequestBody StudentDto studentDto
+            @Valid @RequestBody StudentDto studentDto
     ){
-        return studentService.post(studentDto);
+         return studentService.post(studentDto);
     }
 
-
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<?>handelMethodArgumentNotValidException(
+            MethodArgumentNotValidException exp
+    ){
+        var errors = new HashMap<String,String>();
+        exp.getBindingResult().getAllErrors()
+                .forEach(error ->{
+                    var fieldName = ((FieldError) error).getField();
+                    var errormessage = error.getDefaultMessage();
+                    errors.put(fieldName,errormessage);
+                });
+        return new ResponseEntity<>(errors,HttpStatus.BAD_REQUEST);
+    }
 }

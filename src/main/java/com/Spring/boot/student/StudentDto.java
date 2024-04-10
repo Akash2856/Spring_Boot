@@ -1,4 +1,4 @@
-package com.Spring.boot;
+package com.Spring.boot.student;
 
 
 //Create our own constructors
@@ -6,7 +6,12 @@ package com.Spring.boot;
 // instead they are simply denoted by the name of the field (ex: firstName()).
 //Create static fields
 
-public record StudentDto(String firstname,
+import jakarta.validation.constraints.NotEmpty;
+
+public record StudentDto(
+        @NotEmpty(message = "FirstName should not be empty")
+        String firstname,
+                         @NotEmpty(message = "LastName should not be empty")
                          String lastName,
                          String email,
                          Integer schoolId) {

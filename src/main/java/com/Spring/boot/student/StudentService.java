@@ -1,4 +1,4 @@
-package com.Spring.boot;
+package com.Spring.boot.student;
 
 import org.springframework.stereotype.Service;
 

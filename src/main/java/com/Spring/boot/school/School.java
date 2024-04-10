@@ -1,5 +1,6 @@
-package com.Spring.boot;
+package com.Spring.boot.school;
 
+import com.Spring.boot.student.Student;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
